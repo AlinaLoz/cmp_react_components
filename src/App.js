@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import ClassComponent from './components/class-component';
+import FuncComponent from './components/func-component';
 
 function App() {
+  const [testList, setTestList] = useState([1]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      testList.push(2);
+      console.log('setTimeout testList', testList);
+      setTestList(testList);
+    }, 5000);
+    setTimeout(() => {
+      testList.push(3);
+      console.log('setTimeout testList', testList);
+      setTestList([...testList]);
+    }, 10000);
+
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ClassComponent title='test' testList={testList} />
+      <FuncComponent  title='test' testList={testList} />
     </div>
   );
 }
